@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+@theme {
+  --color-disagro-green: #009639;
+  --color-disagro-yellow: #ffcb05;
+  --color-disagro-text: #2d3748;
+  --color-disagro-bg: #f4f7f5;
+}
