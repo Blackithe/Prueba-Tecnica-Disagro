@@ -1,4 +1,4 @@
-import type { IProducto } from "../types/producto.interface";
+import type { IProducto } from "../models/producto.interface";
 
 const API_URL = 'http://localhost:4000';
 
@@ -17,9 +17,10 @@ export const productoService = {
     },
     //POST /crear
     crearProducto: async (producto: IProducto): Promise<{ mensaje: string }> => {
+        const token = localStorage.getItem('token');
         const response = await fetch(`${API_URL}/crear`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json' , 'Authorization': `Bearer ${token}`},
             body: JSON.stringify(producto)
         });
         if (!response.ok) {
@@ -30,9 +31,10 @@ export const productoService = {
     },
     //PUT /actualizar
     modificarProducto: async (producto: IProducto): Promise<{ mensaje: string }> => {
+        const token = localStorage.getItem('token');
         const response = await fetch(`${API_URL}/modificar`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json' , 'Authorization': `Bearer ${token}`},
             body: JSON.stringify(producto)
         });
         if (!response.ok) {
@@ -43,8 +45,10 @@ export const productoService = {
     },
     //DELETE /eliminar?codigo=XXX
     eliminarProducto: async (codigo: string): Promise<{ mensaje: string }> => {
+        const token = localStorage.getItem('token');
         const response = await fetch(`${API_URL}/eliminar?codigo=${codigo}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${token}` }
         });
         if (!response.ok) {
             const errorData = await response.json();

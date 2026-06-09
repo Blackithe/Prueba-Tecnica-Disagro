@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
-import type { IProducto } from '../types/producto.interface';
+import type { IProducto } from '../models/producto.interface';
 
-interface Props {
+interface ProductoFormProps {
     productoEditando: IProducto | null;
     onGuardar: (producto: IProducto) => Promise<void>;
     onCancelar: () => void;
 }
 
-export function ProductoForm({ productoEditando, onGuardar, onCancelar }: Props) {
+export function ProductoForm({ productoEditando, onGuardar, onCancelar }: ProductoFormProps) {
     const [codigo, setCodigo] = useState('');
     const [nombre, setNombre] = useState('');
     const [descripcion, setDescripcion] = useState('');
@@ -60,7 +60,7 @@ export function ProductoForm({ productoEditando, onGuardar, onCancelar }: Props)
             type="text"
             required
             value={codigo}
-            onChange={(e) => setCodigo(e.target.value)}
+            onChange={(e) => setCodigo(e.target.value.toUpperCase())}
             disabled={!!productoEditando} 
             placeholder="Ej: FERT-003"
             className="w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-xs focus:border-emerald-500 focus:outline-hidden disabled:bg-slate-100 disabled:text-slate-400 transition-colors"

@@ -1,12 +1,13 @@
-import type { IProducto } from '../types/producto.interface';
+import type { IProducto } from '../models/producto.interface';
 
-interface Props {
+interface ProductoTablaProps {
   productos: IProducto[];
   onEditar: (producto: IProducto) => void;
   onEliminar: (codigo: string) => void;
+  isLoggedIn: boolean;
 }
 
-export function ProductoTabla({ productos, onEditar, onEliminar }: Props) {
+export function ProductoTabla({ productos, onEditar, onEliminar, isLoggedIn }: ProductoTablaProps) {
   return (
     <div className="overflow-x-auto max-h-[450px] overflow-y-auto rounded-lg border border-slate-200 shadow-sm relative">
       <table className="w-full text-left border-collapse bg-white text-sm text-slate-600">
@@ -62,13 +63,21 @@ export function ProductoTabla({ productos, onEditar, onEliminar }: Props) {
                 <div className="flex justify-end gap-3">
                   <button
                     onClick={() => onEditar(producto)}
-                    className="text-amber-600 hover:text-amber-700 bg-amber-50 hover:bg-amber-100 px-2.5 py-1.5 rounded-md text-xs font-semibold transition-colors"
+                    disabled={!isLoggedIn}
+                    className={isLoggedIn
+                      ? "text-amber-600 hover:text-amber-700 bg-amber-50 hover:bg-amber-100 px-2.5 py-1.5 rounded-md text-xs font-semibold transition-colors cursor-pointer"
+                      : "text-slate-400 bg-slate-100 px-2.5 py-1.5 rounded-md text-xs font-semibold cursor-not-allowed select-none"
+                    }
                   >
                     Editar
                   </button>
                   <button
                     onClick={() => onEliminar(producto.Codigo)}
-                    className="text-rose-600 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 px-2.5 py-1.5 rounded-md text-xs font-semibold transition-colors"
+                    disabled={!isLoggedIn}
+                    className={isLoggedIn
+                      ? "text-rose-600 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 px-2.5 py-1.5 rounded-md text-xs font-semibold transition-colors cursor-pointer"
+                      : "text-slate-400 bg-slate-100 px-2.5 py-1.5 rounded-md text-xs font-semibold cursor-not-allowed select-none"
+                    }
                   >
                     Eliminar
                   </button>
